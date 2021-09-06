@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_03_004034) do
+ActiveRecord::Schema.define(version: 2021_09_06_223237) do
 
   create_table "authors", force: :cascade do |t|
     t.string "name", null: false
@@ -20,11 +20,24 @@ ActiveRecord::Schema.define(version: 2021_09_03_004034) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "book_lists", force: :cascade do |t|
+    t.integer "book_id", null: false
+    t.integer "list_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_book_lists_on_book_id"
+    t.index ["list_id"], name: "index_book_lists_on_list_id"
+  end
+
   create_table "books", force: :cascade do |t|
     t.string "name", null: false
     t.date "pubdate"
+    t.integer "author_id", null: false
+    t.integer "genre_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_id"], name: "index_books_on_author_id"
+    t.index ["genre_id"], name: "index_books_on_genre_id"
   end
 
   create_table "genres", force: :cascade do |t|
@@ -34,6 +47,7 @@ ActiveRecord::Schema.define(version: 2021_09_03_004034) do
   end
 
   create_table "lists", force: :cascade do |t|
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
